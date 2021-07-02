@@ -1,0 +1,74 @@
+Health Hut
+HH
+
+Prime Health
+
+Doctor/Patient Booking for Appoitments
+
+TABLE
+    Patient
+        id
+        name
+        adress
+        phone#
+
+    Doctor
+        id
+        name
+        phone
+        #speciality??
+
+    Availabililty (Day of the week basis) -> 7 entries
+        id
+        booked -> false
+        address
+        date
+        hours (-> block 1hr)
+            // 6 hours -> 6 avail - 1 doct
+        fk: doctor id
+
+    Appointments
+        id
+        fk: patient
+        fk: doctor
+        fk: avail_id
+
+USE CASES
+
+Thursday 11:00EST - Code
+Friday 15min - Presentation
+
+    0. Login/Register
+    1. Check avail
+    2. Book appt
+    3. Cancel appt
+    4. Filter doctors
+    5. Filter dates
+    6. Easter egg
+    7. See appointments
+
+
+    Calendar
+    ============================
+    |   |    |    |    |   |   |
+    ============================
+    |   |    |    |    |   |   |
+    ============================
+    |   |    |    |    |   |   |
+    ============================
+    |   |    |    |    |   |   |
+    ============================
+EVENT
+    Doctor
+    Avail
+    Timetable
+    Book/Cancel
+
+
+
+DB -> MYSQL
+BACKEND -> SB
+FRONTEND -> REACT
+
+
+
