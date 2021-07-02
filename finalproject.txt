@@ -1,7 +1,12 @@
-Health Hut
-HH
 
 Prime Health
+
+API Endpoints
+
+```
+GET: /book/{patientid}
+```
+
 
 Doctor/Patient Booking for Appoitments
 
