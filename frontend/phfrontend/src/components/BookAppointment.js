@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+/*import React, {Component} from 'react';
 import  {useState} from 'react';
 import Calendar from 'react-calendar';
 
@@ -36,6 +36,6 @@ class BookAppointment extends Component
 
 }
 
-export default BookAppointment
+export default BookAppointment*/
 
 
