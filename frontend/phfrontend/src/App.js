@@ -1,24 +1,27 @@
 import logo from './logo.svg';
+import { BrowserRouter as Router,Route } from 'react-router-dom';
+
+/* components */
+import Welcome from './components/Welcome';
+import BookBox from './components/BookBox';
+import AppointmentListBox   from './components/AppointmentListBox';
+/*styles*/
+//import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
+import './styles/bookbox.css';
+import './styles/appointmentlistbox.css';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+          <Route path="/" exact component={Welcome}/>
+          <Route path="/" exact component={BookBox}/>
+          <Route path="/" exact component={AppointmentListBox}/>
+      </div>
+    </Router>
   );
 }
 
