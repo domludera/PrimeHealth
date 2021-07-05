@@ -1,4 +1,4 @@
-package com.ph.PrimHealth.PrimeHealth;
+package com.ph.PrimeHealth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

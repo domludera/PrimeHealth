@@ -1,52 +1,48 @@
 -- CREATE DATA BASE
 
-DROP DATABASE IF EXISTS PrimeDB;
-CREATE DATABASE PrimeDB ; 
-USE PrimeDB;
+DROP DATABASE IF EXISTS primedb;
+CREATE DATABASE primedb ; 
+USE primedb;
 
 -- CREATE TABLES (Doctor,Patient,Availability,APPOINTMENT)
 
 
-DROP TABLE IF EXISTS Doctor;
-CREATE TABLE Doctor	(
-    DoctorID  int NOT NULL auto_increment,
-    FirstName varchar(15) NOT NULL ,
-    LastName varchar(15) NOT NULL ,
+CREATE TABLE doctor	(
+    id  int NOT NULL auto_increment,
+    firstname varchar(15) NOT NULL ,
+    lastname varchar(15) NOT NULL ,
     phone varchar(10) NOT NULL,
-    Address varchar(10) NOT NULL,
-    City varchar(25) NOT NULL,
-    PostalCode varchar(10) NOT NULL,
+    address varchar(10) NOT NULL,
+    city varchar(25) NOT NULL,
+    postalcode varchar(10) NOT NULL,
 	-- specialty 
-	PRIMARY KEY (DoctorID)
+	PRIMARY KEY (id)
        
  ); 
  -- INSERT INTO Doctor;
-DROP TABLE IF EXISTS Patient;
-CREATE TABLE Patient(
-    PatientID  int NOT NULL auto_increment,
-    FirstName varchar(15) NOT NULL ,
-	LastName varchar(15) NOT NULL ,
+CREATE TABLE patient(
+    id  int NOT NULL auto_increment,
+    firstname varchar(15) NOT NULL ,
+	lastname varchar(15) NOT NULL ,
     phone varchar(10) NOT NULL,
-    Address varchar(10) NOT NULL,
-    City varchar(25) NOT NULL,
-    PostalCode varchar(10) NOT NULL,
-	PRIMARY KEY (PatientID)
+    address varchar(10) NOT NULL,
+    city varchar(25) NOT NULL,
+    postalcode varchar(10) NOT NULL,
+	PRIMARY KEY (id)
      
  ); 
  
 
  
-  DROP TABLE IF EXISTS Appointment;
-CREATE TABLE Appointment(
-		AppointmentID int NOT NULL auto_increment ,
-        DoctorID int NOT NULL,
-        PatientID int NOT NULL,
-        ApptDate Date not null,
-        StartTime time not null,
-        EndTime time not null,
-		PRIMARY KEY (AppointmentID),
-        FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),
-        FOREIGN KEY (PatientID) REFERENCES Patient(PatientID)
+CREATE TABLE appointment(
+	id int NOT NULL auto_increment ,
+        doctorid int NOT NULL,
+        patientid int NOT NULL,
+        starttime Date not null,
+        endtime Date not null,
+	PRIMARY KEY (id),
+        FOREIGN KEY (doctorid) REFERENCES doctor(id),
+        FOREIGN KEY (patientid) REFERENCES patient(id)
 ); 
      
   
