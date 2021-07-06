@@ -10,6 +10,7 @@ import java.util.List;
 @Transactional
 @RestController
 @RequestMapping(value="/doctors")
+@CrossOrigin
 public class DoctorController {
 
     private final DoctorRepository doctorRepository;

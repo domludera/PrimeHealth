@@ -14,6 +14,7 @@ import java.util.List;
 @Transactional
 @RestController
 @RequestMapping(value="/appointments")
+@CrossOrigin
 public class AppointmentController {
 
     private final AppointmentRepository appointmentRepository;
