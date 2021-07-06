@@ -5,6 +5,7 @@ import { BrowserRouter as Router,Route } from 'react-router-dom';
 import Welcome from './components/Welcome';
 import BookBox from './components/BookBox';
 import AppointmentListBox   from './components/AppointmentListBox';
+import AppointmentsList   from './components/AppointmentsList';
 import BookAppointment  from './components/BookAppointment';
 
 /*styles*/
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" exact component={BookBox}/>
           <Route path="/" exact component={AppointmentListBox}/>
           <Route path="/bookAppointment" exact component={BookAppointment}/>
+          <Route path="/appointmentList" exact component={AppointmentsList}/>
       </div>
     </Router>
   );
