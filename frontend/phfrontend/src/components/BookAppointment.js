@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import TimePicker from 'react-time-picker';
 import Calendar from 'react-calendar';
-
+import { Select, InputLabel, MenuItem, Input } from '@material-ui/core';
 import {set, useForm} from "react-hook-form";
 
 import 'react-calendar/dist/Calendar.css'
 
-import {makeStyles, createStyles} from '@material-ui/core/styles';
+import {makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles({
@@ -15,7 +15,8 @@ const useStyles = makeStyles({
         marginRight: '20%',
         marginTop: '5%',
         display: 'flex',
-        alignItems: 'row'
+        flexDirection: 'row',
+        alignItems:"center",
     },
     calendar: {
         display: "flex",
@@ -26,11 +27,13 @@ const useStyles = makeStyles({
         // color: props => props.color,
     },
     menu: {
-        display: "flex",
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'center',
-
+        // display: "flex",
+        // alignItems: 'center',
+        // flexDirection: 'column',
+        // justifyContent: 'center',
+    },
+    inputLabel: {
+        minWidth: 300
     }
 });
 
@@ -53,13 +56,6 @@ function BookAppointment(props) {
         data['endtime'] = endtime;
         dayClick(data)
     }
-
-
-    function setCalendarDate(newDate) {
-        console.log(starttime);
-        return starttime;
-    }
-
 
     function dayClick(value) {
         console.log(value);
@@ -100,8 +96,9 @@ function BookAppointment(props) {
 
 
     return (
-        <div className={classes.apptpicker}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+            <form sx={{m:1, minWidth: 300}} onSubmit={handleSubmit(onSubmit)}>
+                <div className={classes.apptpicker}>
                 <div className={classes.calendar}>
 
                     <Calendar
@@ -114,18 +111,22 @@ function BookAppointment(props) {
                     />
                 </div>
                 <div className={classes.menu}>
+                    <InputLabel className={classes.inputLabel} id="doctorid">Doctor</InputLabel>
+                    <Select
+                        labelId="doctorid"
+                        label="Doctor"
+                        {...register("doctor")}
+                    >
+                        <MenuItem value={1}>James Smith</MenuItem>
+                        <MenuItem value={2}>Roy Johnson</MenuItem>
+                        <MenuItem value={3}>Noah Williams</MenuItem>
+                    </Select>
 
-
-                    {/*<input {...register("firstName")} placeholder="First name" />*/}
-                    {/*<input {...register("lastName")} placeholder="Last name" />*/}
-                    <select {...register("doctor")}>
-                        <option value="1">James Smith</option>
-                        <option value="2">Roy Johnson</option>
-                        <option value="3">Noah Williams</option>
-                    </select>
                 </div>
 
-                <input type="submit"/>
+                </div>
+                <Input type="submit"/>
+
             </form>
         </div>
     );
