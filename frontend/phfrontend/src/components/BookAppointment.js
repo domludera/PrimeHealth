@@ -14,7 +14,7 @@ import {makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     apptpicker: {
-        marginLeft: '20%',
+        marginLeft: '30%',
         marginRight: '20%',
         marginTop: '5%',
         display: 'flex',
@@ -62,7 +62,7 @@ function BookAppointment(props) {
 
     function dayClick(value) {
         console.log(value);
-        if (window.confirm('Confirm appointment ' + value.toString())) {
+        if (window.confirm('Confirm appointment')) {
             postData('http://localhost:8080/appointments', {
                 "starttime": value.starttime.toISOString(),
                 "endtime": value.endtime.toISOString(),

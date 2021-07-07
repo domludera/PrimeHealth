@@ -12,10 +12,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        fontsize: 10,
-    },
     title: {
         flexGrow: 1,
     },
@@ -28,6 +24,9 @@ export default function ButtonAppBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
+                    <Typography variant="h3" className={classes.title}>
+                        PrimeHealth
+                    </Typography>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <Button href="/BookAppointment" color="inherit">Book Now</Button>
                     </IconButton>
