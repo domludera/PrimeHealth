@@ -1,64 +1,50 @@
 import React, {useState, Component} from 'react';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class AppointmentsList extends Component {
+
 
   constructor(props) {
       super(props);
       // This binding is necessary to make `this` work in the callback
       // this.cancelAppointment = this.cancelAppointment.bind(this);
+      this.state = {
+          data: []
+      }
     }
 
-    cancelAppointment(){
-      var id = parseInt(window.prompt('Enter appointment id:'));
+
+    cancelAppointment(id){
+      // var id = parseInt(window.prompt('Enter appointment id:'));
       var api_url = "http://localhost:8080/appointments/"+id;
       fetch (api_url,{
               method:"DELETE",
-      }).then(window.alert("appointment canceled"));
+      }).then(window.alert("Appointment Canceled"))
+          .then(window.location.href = "/AppointmentList");
     }
 
     componentDidMount() {
-      
         var api_url = "http://localhost:8080/appointments";
         fetch(api_url).then(response => response.json()).then(data => {
-            // data is the returned array
-            console.log(data);
-            var i, html = "";
-
-            for (i = 0; i < data.length; i++) {
-                var id =  data[i].id ; //id
-                var startTime = '<div>Start Time: ' + data[i].starttime + '</div>'
-                var endTime = '<div id="p-price">End Time: ' + data[i].endtime + '</div> <br><br>'
-                var doctorid = '<div >Doctor: ' + data[i].doctor.firstname + ' ' + data[i].doctor.lastname  + '</div>';
-                var patientid = '<div >Patient: ' + data[i].patient.firstname + ' ' + data[i].doctor.lastname + '</div>';
-                html += '<button id='+id+' onClick='+'{this.cancelAppointment}'+'>Cancel appointment</button>'+'<p>     </p>'
-                        +'<div id = "appointment-info-container">' + id + doctorid + patientid + startTime + endTime + '</div><hr>';
-                
-            }
-            document.getElementById("appointment-container").innerHTML = html; // insert content
-            document.getElementById("appointment-container").style.display = "block"; // show parts container
-
-        }) // end then(data ==>)
-
+            this.setState({data: data})
+        })
     }
-
-    
 
     render() {
         return (
-
             <div>
-            <button onClick={this.cancelAppointment}>
-              Cancel appt
-            </button>
-                <h1>Appointments List</h1>
-                <div id="appointment-container">
-
-                </div>
+            <h1>Appointments List</h1>
+                {this.state.data.map((appt, index) => (
+                    <div>
+                        <p>Doctor: {appt.doctor.firstname} {appt.doctor.lastname}</p>
+                        <p>Patient: {appt.patient.firstname} {appt.patient.lastname}</p>
+                        <p>Start time: {(new Date(appt.starttime)).toLocaleString('en-US', {timeZone: 'EST'})}</p>
+                        <p>End time: {(new Date(appt.endtime)).toLocaleString('en-US', {timeZone: 'EST'})}</p>
+                        <DeleteIcon onClick={() => this.cancelAppointment(appt.id)}>Cancel Appointment</DeleteIcon>
+                    </div>
+                ))}
             </div>
-          
-            
         )
-
     }
 
 }
