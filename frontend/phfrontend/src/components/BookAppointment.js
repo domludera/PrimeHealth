@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import TimePicker from 'react-time-picker';
 import Calendar from 'react-calendar';
-import { Select, InputLabel, MenuItem, Input } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Input from '@material-ui/core/Input';
 import {set, useForm} from "react-hook-form";
 
 import 'react-calendar/dist/Calendar.css'
