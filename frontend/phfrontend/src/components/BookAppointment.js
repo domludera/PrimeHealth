@@ -1,10 +1,74 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import TimePicker from 'react-time-picker';
 import Calendar from 'react-calendar';
-function BookAppointment() {
-    const [value, onChange] = useState(new Date());
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Input from '@material-ui/core/Input';
+import {set, useForm} from "react-hook-form";
+
+import 'react-calendar/dist/Calendar.css'
+
+import {makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles({
+    apptpicker: {
+        marginLeft: '20%',
+        marginRight: '20%',
+        marginTop: '5%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems:"center",
+    },
+    calendar: {
+        display: "flex",
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        // backgroundColor: 'red',
+        // color: props => props.color,
+    },
+    menu: {
+        // display: "flex",
+        // alignItems: 'center',
+        // flexDirection: 'column',
+        // justifyContent: 'center',
+    },
+    inputLabel: {
+        minWidth: 300
+    }
+});
+
+
+function BookAppointment(props) {
+    const [starttime, onDateChange] = useState(new Date());
+    const [time, onTimeChange] = useState('10:00');
+    const {register, handleSubmit} = useForm();
+
+    const classes = useStyles(props);
+
+
+    const onSubmit = (data) => {
+        var timeArr = time.split(":")
+        starttime.setHours(timeArr[0])
+        starttime.setMinutes(timeArr[1])
+        var endtime = starttime
+        endtime.setHours(starttime.getHours() + 2)
+        data['starttime'] = starttime;
+        data['endtime'] = endtime;
+        dayClick(data)
+    }
+
     function dayClick(value) {
-        if (window.confirm('Confirm appointment ' + value)) {
-            postData('http://localhost:8080/appointments', {"starttime": value,"endtime": value,"doctor":{"id": 2},"patient": {"id": 1}})
+        console.log(value);
+        if (window.confirm('Confirm appointment ' + value.toString())) {
+            postData('http://localhost:8080/appointments', {
+                "starttime": value.starttime.toISOString(),
+                "endtime": value.endtime.toISOString(),
+                "doctor": {"id": value.doctor},
+                "patient": {"id": 1}
+            })
                 .then(data => {
                     console.log(data); // JSON data parsed by `data.json()` call
                 });
@@ -14,9 +78,7 @@ function BookAppointment() {
         }
 
     }
-    function fullDay() {
 
-    }
     async function postData(url = '', data = {}) {
         // Default options are marked with *
         const response = await fetch(url, {
@@ -34,14 +96,43 @@ function BookAppointment() {
         });
         return response.json(); // parses JSON response into native JavaScript objects
     }
+
+
     return (
         <div>
-            <Calendar
-                onClickDay = {dayClick}
-                onChange={onChange}
-                value={value}
-            />
+            <form sx={{m:1, minWidth: 300}} onSubmit={handleSubmit(onSubmit)}>
+                <div className={classes.apptpicker}>
+                <div className={classes.calendar}>
+
+                    <Calendar
+                        value={starttime}
+                        onChange={onDateChange}
+                    />
+                    <TimePicker
+                        value={time}
+                        onChange={onTimeChange}
+                    />
+                </div>
+                <div className={classes.menu}>
+                    <InputLabel className={classes.inputLabel} id="doctorid">Doctor</InputLabel>
+                    <Select
+                        labelId="doctorid"
+                        label="Doctor"
+                        {...register("doctor")}
+                    >
+                        <MenuItem value={1}>James Smith</MenuItem>
+                        <MenuItem value={2}>Roy Johnson</MenuItem>
+                        <MenuItem value={3}>Noah Williams</MenuItem>
+                    </Select>
+
+                </div>
+
+                </div>
+                <Input type="submit"/>
+
+            </form>
         </div>
     );
 }
+
 export default BookAppointment

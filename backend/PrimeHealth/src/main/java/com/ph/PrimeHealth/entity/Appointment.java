@@ -1,8 +1,10 @@
 package com.ph.PrimeHealth.entity;
 
 import lombok.*;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,10 +23,10 @@ public class Appointment {
     private int id;
 
     @Column(name="starttime")
-    private Date starttime;
+    private LocalDateTime starttime;
 
     @Column(name="endtime")
-    private Date endtime;
+    private LocalDateTime endtime;
 
     @OneToOne
     @JoinColumn(name="doctorid")
