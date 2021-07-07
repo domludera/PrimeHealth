@@ -1,42 +1,33 @@
-
 Prime Health
 
-API Endpoints
-
-```
-GET: /book/{patientid}
-```
-
-
-Doctor/Patient Booking for Appoitments
+Doctor/Patient Booking for Appointments
 
 TABLE
     Patient
         id
-        name
+        firstname
+	lastname
+	phone#
         adress
-        phone#
+        city
+	postalcode
 
     Doctor
         id
-        name
-        phone
+        firstname
+	lastname
+	phone#
+        adress
+        city
+	postalcode
         #speciality??
-
-    Availabililty (Day of the week basis) -> 7 entries
-        id
-        booked -> false
-        address
-        date
-        hours (-> block 1hr)
-            // 6 hours -> 6 avail - 1 doct
-        fk: doctor id
 
     Appointments
         id
         fk: patient
         fk: doctor
-        fk: avail_id
+	starttime
+	endtime
 
 USE CASES
 
@@ -68,7 +59,6 @@ EVENT
     Avail
     Timetable
     Book/Cancel
-
 
 
 DB -> MYSQL
