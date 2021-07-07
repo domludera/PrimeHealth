@@ -1,11 +1,11 @@
 API endpoints
 
 modify
-PUT: /appointments
+PUT: /{id}
 
 
 delete
-DELETE: /appointments
+DELETE: /{id}
 
 
 get all
