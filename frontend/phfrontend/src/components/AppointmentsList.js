@@ -14,7 +14,7 @@ class AppointmentsList extends Component {
                 var startTime = '<div>Start Time: ' + data[i].starttime + '</div>'
                 var endTime = '<div id="p-price">End Time: ' + data[i].endtime + '</div> <br><br>'
                 var doctorid = '<div >Doctor: ' + data[i].doctor.firstname + ' ' + data[i].doctor.lastname  + '</div>';
-                var patientid = '<div >Patient: ' + data[i].patient.firstname + ' ' + data[i].doctor.lastname + '</div>';
+                var patientid = '<div >Patient: ' + data[i].patient.firstname + ' ' + data[i].patient.lastname + '</div>';
                 html += '<div id = "appointment-info-container">' + doctorid + patientid + startTime + endTime + '</div><hr>';
 
             }
