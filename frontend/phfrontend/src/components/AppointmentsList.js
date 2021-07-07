@@ -31,7 +31,7 @@ class AppointmentsList extends Component {
                 var doctorid = '<div >Doctor: ' + data[i].doctor.firstname + ' ' + data[i].doctor.lastname  + '</div>';
                 var patientid = '<div >Patient: ' + data[i].patient.firstname + ' ' + data[i].doctor.lastname + '</div>';
                 html += '<button id='+id+' onClick='+'{this.cancelAppointment}'+'>Cancel appointment</button>'+'<p>     </p>'
-                        +'<div id = "appointment-info-container">' + doctorid + patientid + startTime + endTime + '</div><hr>';
+                        +'<div id = "appointment-info-container">' + id + doctorid + patientid + startTime + endTime + '</div><hr>';
                 
             }
             document.getElementById("appointment-container").innerHTML = html; // insert content
