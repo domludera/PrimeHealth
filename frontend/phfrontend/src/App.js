@@ -31,6 +31,7 @@ function App() {
       <div className="App">
           <Welcome/>
           <Route path="/bookAppointment" exact component={BookAppointment}/>
+          <Route path="/" exact component={BookAppointment}/>
           <Route path="/appointmentList" exact component={AppointmentsList}/>
       </div>
     </Router>

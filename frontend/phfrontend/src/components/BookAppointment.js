@@ -1,10 +1,75 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import TimePicker from 'react-time-picker';
 import Calendar from 'react-calendar';
-function BookAppointment() {
-    const [value, onChange] = useState(new Date());
+
+import {set, useForm} from "react-hook-form";
+
+import 'react-calendar/dist/Calendar.css'
+
+import {makeStyles, createStyles} from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles({
+    apptpicker: {
+        marginLeft: '20%',
+        marginRight: '20%',
+        marginTop: '5%',
+        display: 'flex',
+        alignItems: 'row'
+    },
+    calendar: {
+        display: "flex",
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        // backgroundColor: 'red',
+        // color: props => props.color,
+    },
+    menu: {
+        display: "flex",
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+
+    }
+});
+
+
+function BookAppointment(props) {
+    const [starttime, onDateChange] = useState(new Date());
+    const [time, onTimeChange] = useState('10:00');
+    const {register, handleSubmit} = useForm();
+
+    const classes = useStyles(props);
+
+
+    const onSubmit = (data) => {
+        var timeArr = time.split(":")
+        starttime.setHours(timeArr[0])
+        starttime.setMinutes(timeArr[1])
+        var endtime = starttime
+        endtime.setHours(starttime.getHours() + 2)
+        data['starttime'] = starttime;
+        data['endtime'] = endtime;
+        dayClick(data)
+    }
+
+
+    function setCalendarDate(newDate) {
+        console.log(starttime);
+        return starttime;
+    }
+
+
     function dayClick(value) {
-        if (window.confirm('Confirm appointment ' + value)) {
-            postData('http://localhost:8080/appointments', {"starttime": value,"endtime": value,"doctor":{"id": 2},"patient": {"id": 1}})
+        console.log(value);
+        if (window.confirm('Confirm appointment ' + value.toString())) {
+            postData('http://localhost:8080/appointments', {
+                "starttime": value.starttime.toISOString(),
+                "endtime": value.endtime.toISOString(),
+                "doctor": {"id": value.doctor},
+                "patient": {"id": 1}
+            })
                 .then(data => {
                     console.log(data); // JSON data parsed by `data.json()` call
                 });
@@ -14,9 +79,7 @@ function BookAppointment() {
         }
 
     }
-    function fullDay() {
 
-    }
     async function postData(url = '', data = {}) {
         // Default options are marked with *
         const response = await fetch(url, {
@@ -34,14 +97,38 @@ function BookAppointment() {
         });
         return response.json(); // parses JSON response into native JavaScript objects
     }
+
+
     return (
-        <div>
-            <Calendar
-                onClickDay = {dayClick}
-                onChange={onChange}
-                value={value}
-            />
+        <div className={classes.apptpicker}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className={classes.calendar}>
+
+                    <Calendar
+                        value={starttime}
+                        onChange={onDateChange}
+                    />
+                    <TimePicker
+                        value={time}
+                        onChange={onTimeChange}
+                    />
+                </div>
+                <div className={classes.menu}>
+
+
+                    {/*<input {...register("firstName")} placeholder="First name" />*/}
+                    {/*<input {...register("lastName")} placeholder="Last name" />*/}
+                    <select {...register("doctor")}>
+                        <option value="1">James Smith</option>
+                        <option value="2">Roy Johnson</option>
+                        <option value="3">Noah Williams</option>
+                    </select>
+                </div>
+
+                <input type="submit"/>
+            </form>
         </div>
     );
 }
+
 export default BookAppointment
