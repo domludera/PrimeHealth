@@ -9,7 +9,7 @@ import {set, useForm} from "react-hook-form";
 
 import 'react-calendar/dist/Calendar.css'
 
-import {makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles({
@@ -19,21 +19,22 @@ const useStyles = makeStyles({
         marginTop: '5%',
         display: 'flex',
         flexDirection: 'row',
-        alignItems:"center",
+        alignItems: "center",
     },
     calendar: {
         display: "flex",
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        // backgroundColor: 'red',
-        // color: props => props.color,
     },
     menu: {
-        // display: "flex",
-        // alignItems: 'center',
-        // flexDirection: 'column',
-        // justifyContent: 'center',
+        display: "flex",
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    submit: {
+        margin: '1em'
     },
     inputLabel: {
         minWidth: 300
@@ -43,7 +44,7 @@ const useStyles = makeStyles({
 
 function BookAppointment(props) {
     const [starttime, onDateChange] = useState(new Date());
-    const [time, onTimeChange] = useState('10:00');
+    const [time, onTimeChange] = useState();
     const {register, handleSubmit} = useForm();
 
     const classes = useStyles(props);
@@ -53,15 +54,16 @@ function BookAppointment(props) {
         var timeArr = time.split(":")
         starttime.setHours(timeArr[0])
         starttime.setMinutes(timeArr[1])
-        var endtime = starttime
+        var endtime = new Date(starttime)
         endtime.setHours(starttime.getHours() + 2)
+        endtime.setMinutes(starttime.getMinutes())
+        endtime.setSeconds(starttime.getSeconds())
         data['starttime'] = starttime;
         data['endtime'] = endtime;
-        dayClick(data)
+        bookAppointment(data)
     }
 
-    function dayClick(value) {
-        console.log(value);
+    function bookAppointment(value) {
         if (window.confirm('Confirm appointment')) {
             postData('http://localhost:8080/appointments', {
                 "starttime": value.starttime.toISOString(),
@@ -69,9 +71,6 @@ function BookAppointment(props) {
                 "doctor": {"id": value.doctor},
                 "patient": {"id": 1}
             })
-                .then(data => {
-                    console.log(data); // JSON data parsed by `data.json()` call
-                });
             alert('Confirmed')
         } else {
             alert('Cancelled')
@@ -100,35 +99,35 @@ function BookAppointment(props) {
 
     return (
         <div>
-            <form sx={{m:1, minWidth: 300}} onSubmit={handleSubmit(onSubmit)}>
+            <form sx={{m: 1, minWidth: 300}} onSubmit={handleSubmit(onSubmit)}>
                 <div className={classes.apptpicker}>
-                <div className={classes.calendar}>
+                    <div className={classes.calendar}>
 
-                    <Calendar
-                        value={starttime}
-                        onChange={onDateChange}
-                    />
-                    <TimePicker
-                        value={time}
-                        onChange={onTimeChange}
-                    />
-                </div>
-                <div className={classes.menu}>
-                    <InputLabel className={classes.inputLabel} id="doctorid">Doctor</InputLabel>
-                    <Select
-                        labelId="doctorid"
-                        label="Doctor"
-                        {...register("doctor")}
-                    >
-                        <MenuItem value={1}>James Smith</MenuItem>
-                        <MenuItem value={2}>Roy Johnson</MenuItem>
-                        <MenuItem value={3}>Noah Williams</MenuItem>
-                    </Select>
+                        <Calendar
+                            value={starttime}
+                            onChange={onDateChange}
+                        />
+                        <TimePicker
+                            value={time}
+                            onChange={onTimeChange}
+                        />
+                    </div>
+                    <div className={classes.menu}>
+                        <InputLabel className={classes.inputLabel} id="doctorid">Doctor</InputLabel>
+                        <Select
+                            labelId="doctorid"
+                            label="Doctor"
+                            {...register("doctor")}
+                        >
+                            <MenuItem value={1}>James Smith</MenuItem>
+                            <MenuItem value={2}>Roy Johnson</MenuItem>
+                            <MenuItem value={3}>Noah Williams</MenuItem>
+                        </Select>
+
+                    </div>
 
                 </div>
-
-                </div>
-                <Input type="submit"/>
+                <Input className={classes.submit} type="submit"/>
 
             </form>
         </div>
