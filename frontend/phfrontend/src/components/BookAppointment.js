@@ -26,14 +26,15 @@ const useStyles = makeStyles({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        // backgroundColor: 'red',
-        // color: props => props.color,
     },
     menu: {
-        // display: "flex",
-        // alignItems: 'center',
-        // flexDirection: 'column',
-        // justifyContent: 'center',
+        display: "flex",
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    submit: {
+        margin: '1em'
     },
     inputLabel: {
         minWidth: 300
@@ -43,7 +44,7 @@ const useStyles = makeStyles({
 
 function BookAppointment(props) {
     const [starttime, onDateChange] = useState(new Date());
-    const [time, onTimeChange] = useState('10:00');
+    const [time, onTimeChange] = useState();
     const {register, handleSubmit} = useForm();
 
     const classes = useStyles(props);
@@ -128,7 +129,7 @@ function BookAppointment(props) {
                 </div>
 
                 </div>
-                <Input type="submit"/>
+                <Input className={classes.submit} type="submit"/>
 
             </form>
         </div>

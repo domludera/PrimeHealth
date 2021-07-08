@@ -1,5 +1,8 @@
 import React, {useState, Component} from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
+import {makeStyles} from "@material-ui/core/styles";
+
+import '../styles/appointmentlistbox.css'
 
 class AppointmentsList extends Component {
 
@@ -11,6 +14,7 @@ class AppointmentsList extends Component {
       this.state = {
           data: []
       }
+
     }
 
 
@@ -38,8 +42,8 @@ class AppointmentsList extends Component {
                     <div>
                         <p>Doctor: {appt.doctor.firstname} {appt.doctor.lastname}</p>
                         <p>Patient: {appt.patient.firstname} {appt.patient.lastname}</p>
-                        <p>Start time: {(new Date(appt.starttime)).toLocaleString('en-US', {timeZone: 'EST'})}</p>
-                        <p>End time: {(new Date(appt.endtime)).toLocaleString('en-US', {timeZone: 'EST'})}</p>
+                        <p>Start time: {(new Date(appt.starttime)).toLocaleString('en-US', {timeZone: 'Pacific/Honolulu'})}</p>
+                        <p>End time: {(new Date(appt.endtime)).toLocaleString('en-US', {timeZone: 'Pacific/Honolulu'})}</p>
                         <DeleteIcon onClick={() => this.cancelAppointment(appt.id)}>Cancel Appointment</DeleteIcon>
                     </div>
                 ))}
