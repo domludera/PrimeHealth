@@ -1,7 +1,6 @@
 import React, {useState, Component} from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import '../styles/appointmentlistbox.css'
 
 class AppointmentsList extends Component {
 

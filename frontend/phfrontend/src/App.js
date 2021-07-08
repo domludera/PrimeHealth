@@ -7,8 +7,6 @@ import BookAppointment from './components/BookAppointment';
 
 /*styles*/
 import './App.css';
-import './styles/bookbox.css';
-import './styles/appointmentlistbox.css';
 import React from "react";
 
 
