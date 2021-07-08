@@ -1,25 +1,19 @@
 import React, {useState, Component} from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {makeStyles} from "@material-ui/core/styles";
 
 import '../styles/appointmentlistbox.css'
 
 class AppointmentsList extends Component {
 
-
   constructor(props) {
       super(props);
-      // This binding is necessary to make `this` work in the callback
-      // this.cancelAppointment = this.cancelAppointment.bind(this);
       this.state = {
           data: []
       }
-
     }
 
 
     cancelAppointment(id){
-      // var id = parseInt(window.prompt('Enter appointment id:'));
       var api_url = "http://localhost:8080/appointments/"+id;
       fetch (api_url,{
               method:"DELETE",

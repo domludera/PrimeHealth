@@ -54,15 +54,16 @@ function BookAppointment(props) {
         var timeArr = time.split(":")
         starttime.setHours(timeArr[0])
         starttime.setMinutes(timeArr[1])
-        var endtime = starttime
+        var endtime = new Date()
         endtime.setHours(starttime.getHours() + 2)
+        endtime.setMinutes(starttime.getMinutes())
+        endtime.setSeconds(starttime.getSeconds())
         data['starttime'] = starttime;
         data['endtime'] = endtime;
-        dayClick(data)
+        bookAppointment(data)
     }
 
-    function dayClick(value) {
-        console.log(value);
+    function bookAppointment(value) {
         if (window.confirm('Confirm appointment')) {
             postData('http://localhost:8080/appointments', {
                 "starttime": value.starttime.toISOString(),
@@ -70,9 +71,6 @@ function BookAppointment(props) {
                 "doctor": {"id": value.doctor},
                 "patient": {"id": 1}
             })
-                .then(data => {
-                    console.log(data); // JSON data parsed by `data.json()` call
-                });
             alert('Confirmed')
         } else {
             alert('Cancelled')
