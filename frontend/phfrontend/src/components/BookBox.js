@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
-class BookBox extends Component
-{
+class BookBox extends Component {
 
-    render()
-    {
+    render() {
         return (
-                <div id="bookBox"><a ><Link to="/BookAppointment"id="reg" >Book Now</Link></a></div>
+            <div id="bookBox"><a><Link to="/BookAppointment" id="reg">Book Now</Link></a></div>
         )
     }
 
