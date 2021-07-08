@@ -31,7 +31,7 @@ class AppointmentsList extends Component {
         return (
             <div>
                 <h1>Appointments List</h1>
-                {this.state.data.map((appt, index) => (
+                {this.state.data.reverse().map((appt, index) => (
                     <div>
                         <p>Doctor: {appt.doctor.firstname} {appt.doctor.lastname}</p>
                         <p>Patient: {appt.patient.firstname} {appt.patient.lastname}</p>
